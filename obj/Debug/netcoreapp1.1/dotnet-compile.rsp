@@ -178,3 +178,6 @@
 /Users/noraqin/AMIS/FisherInsuranceApi/Controllers/ClaimsController.cs
 /Users/noraqin/AMIS/FisherInsuranceApi/Controllers/HomeController.cs
 /Users/noraqin/AMIS/FisherInsuranceApi/Controllers/LifeController.cs
+/Users/noraqin/AMIS/FisherInsuranceApi/Data/IMemoryStore.cs
+/Users/noraqin/AMIS/FisherInsuranceApi/Data/MemoryStore.cs
+/Users/noraqin/AMIS/FisherInsuranceApi/Models/QuoteModel.cs
