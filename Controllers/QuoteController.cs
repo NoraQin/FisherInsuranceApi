@@ -3,11 +3,11 @@ using FisherInsuranceApi.Data;
 using FisherInsuranceApi.Models;
 
 namespace FisherInsuranceApi.Controllers {
-    [Route("api/auto/quotes")] 
-    public class AutoController : Controller {
+    [Route("api/quotes")] 
+    public class QuoteController : Controller {
         
         private IMemoryStore db;
-        public AutoController(IMemoryStore repo)
+        public QuoteController(IMemoryStore repo)
         {
             db = repo;
         }
