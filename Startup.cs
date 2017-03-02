@@ -29,9 +29,8 @@ namespace FisherInsuranceApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddSingleton<IMemoryStore, MemoryStore>();
+            services.AddDbContext<FisherContext>();
             services.AddMvc();
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

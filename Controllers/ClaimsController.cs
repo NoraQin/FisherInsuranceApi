@@ -5,41 +5,53 @@ using FisherInsuranceApi.Models;
 namespace FisherInsuranceApi.Controllers{
     [Route("api/claims")] 
     public class ClaimsController : Controller {
-        private IMemoryStore db;
-        public ClaimsController(IMemoryStore repo)
-        {
-            db = repo;
+        private readonly FisherContext db;
+        public ClaimsController(FisherContext context) {
+            db = context; 
         }
 
         [HttpGet]
-        public IActionResult GetQuotes()
+        public IActionResult GetClaims()
         {
-            return Ok(db.RetrieveAllClaims);
+            return Ok(db.Claims);
         }
         
         // POST api/customercare/claims
         [HttpPost]
         public IActionResult Post([FromBody]Claim claim) {
-            return Ok(db.CreateClaim(claim));
+            var newClaim = db.Claims.Add(claim); 
+            db.SaveChanges(); 
+            return CreatedAtRoute("GetClaim", new { id = claim.Id }, claim);
         }
 
         // GET api/customercare/claims/5 
-        [HttpGet("{id}")] 
+        [HttpGet("{id}", Name = "GetClaim")] 
         public IActionResult Get(int id) {
-            return Ok(db.RetrieveClaim(id));
+            return Ok(db.Claims.Find(id));
         }
 
         // PUT api/customercare/claims/id
         [HttpPut("{id}")] 
         public IActionResult Put(int id, [FromBody]Claim claim) {
-            return Ok(db.UpdateClaim(claim)); 
+            var newClaim = db.Claims.Find(id); 
+            if (newClaim == null) { 
+                return NotFound(); 
+            } 
+            newClaim = claim; 
+            db.SaveChanges(); 
+            return Ok(newClaim);
         }
 
         // DELETE api/customercare/claims/id
         [HttpDelete("{id}")] 
-        public IActionResult Delete(int id, [FromBody]Claim claim) {
-            db.DeleteClaim(id);
-            return Ok(); 
+        public IActionResult Delete(int id) {
+            var claimToDelete = db.Claims.Find(id); 
+            if (claimToDelete == null) { 
+                return NotFound(); 
+            } 
+            db.Claims.Remove(claimToDelete); 
+            db.SaveChangesAsync(); 
+            return NoContent();
         }
 
     }

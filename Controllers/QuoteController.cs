@@ -1,45 +1,39 @@
 using Microsoft.AspNetCore.Mvc; 
-using FisherInsuranceApi.Data;
 using FisherInsuranceApi.Models;
 
 namespace FisherInsuranceApi.Controllers {
     [Route("api/quotes")] 
     public class QuoteController : Controller {
         
-        private IMemoryStore db;
-        public QuoteController(IMemoryStore repo)
-        {
-            db = repo;
-        }
+
         // POST api/auto/quotes
         
         [HttpGet]
         public IActionResult GetQuotes()
         {
-            return Ok(db.RetrieveAllQuotes);
+            return Ok();
         }
 
         [HttpPost] 
         public IActionResult Post([FromBody]Quote quote) {
-            return Ok(db.CreateQuote(quote));
+            return Ok();
         }
 
         // GET api/auto/quotes/5 
         [HttpGet("{id}")] 
         public IActionResult Get(int id) {
-            return Ok(db.RetrieveQuote(id));
+            return Ok();
         }
 
         // PUT api/auto/quotes/id
         [HttpPut("{id}")] 
         public IActionResult Put(int id, [FromBody]Quote quote) {
-            return Ok(db.UpdateQuote(quote)); 
+            return Ok(); 
         }
 
         // DELETE api/auto/quotes/id
         [HttpDelete("{id}")] 
         public IActionResult Delete(int id, [FromBody]Quote quote) {
-            db.DeleteQuote(id);
             return Ok();
         }
 
